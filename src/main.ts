@@ -97,6 +97,11 @@ const I18N = {
   en: {
     openRibbon: "Open OneMind",
     openMindMap: "Open current note as mind map",
+    createMindMap: "Create new mind map",
+    newMindMapTitle: "New mind map",
+    mindMapNamePlaceholder: "Mind map name",
+    createButton: "Create",
+    createdMindMap: "Created mind map",
     returnMarkdown: "Return to Markdown editor",
     addChild: "Add child node",
     addSibling: "Add sibling node",
@@ -192,6 +197,11 @@ const I18N = {
   zh: {
     openRibbon: "打开 OneMind",
     openMindMap: "以思维导图打开当前笔记",
+    createMindMap: "新建思维导图",
+    newMindMapTitle: "新建思维导图",
+    mindMapNamePlaceholder: "思维导图名称",
+    createButton: "创建",
+    createdMindMap: "已创建思维导图",
     returnMarkdown: "返回 Markdown 编辑器",
     addChild: "添加子节点",
     addSibling: "添加同级节点",
@@ -326,7 +336,18 @@ export default class OneMindPlugin extends Plugin {
     );
 
     this.addRibbonIcon("git-fork", this.t("openRibbon"), () => {
-      void this.openMindMap();
+      const file = this.getActiveMarkdownFile();
+      if (file) {
+        void this.openMindMap(file, this.getActiveHeadingAnchor());
+      } else {
+        this.createMindMap();
+      }
+    });
+
+    this.addCommand({
+      id: "create-onemind-note",
+      name: this.t("createMindMap"),
+      callback: () => this.createMindMap()
     });
 
     this.addCommand({
@@ -444,6 +465,41 @@ export default class OneMindPlugin extends Plugin {
       state: { file: file.path, heading: heading ?? undefined },
       active: true
     });
+  }
+
+  createMindMap(): void {
+    new MindMapNameModal(
+      this.app,
+      this.t("createMindMap"),
+      this.t("mindMapNamePlaceholder"),
+      this.t("createButton"),
+      this.t("newMindMapTitle"),
+      async (title) => {
+        const file = await this.createMindMapFile(title);
+        new Notice(`${this.t("createdMindMap")}: ${file.basename}`);
+        await this.openMindMap(file);
+      }
+    ).open();
+  }
+
+  private async createMindMapFile(title: string): Promise<TFile> {
+    const fallbackTitle = this.t("newMindMapTitle");
+    const displayTitle = title.trim() || fallbackTitle;
+    const fileName = sanitizeFileName(displayTitle) || fallbackTitle;
+    const folder = this.getActiveMarkdownFile()?.parent?.path;
+    const folderPrefix = folder && folder !== "/" ? `${folder}/` : "";
+    const path = this.getAvailablePath(folderPrefix, fileName);
+    return await this.app.vault.create(path, `# ${displayTitle}\n\n- New idea\n`);
+  }
+
+  private getAvailablePath(folderPrefix: string, fileName: string): string {
+    let index = 0;
+    while (true) {
+      const suffix = index === 0 ? "" : ` ${index + 1}`;
+      const path = `${folderPrefix}${fileName}${suffix}.md`;
+      if (!this.app.vault.getAbstractFileByPath(path)) return path;
+      index += 1;
+    }
   }
 }
 
@@ -2035,6 +2091,61 @@ class TagInputModal extends Modal {
   }
 }
 
+class MindMapNameModal extends Modal {
+  private title: string;
+  private placeholder: string;
+  private buttonText: string;
+  private defaultValue: string;
+  private onSubmit: (title: string) => void;
+
+  constructor(
+    app: App,
+    title: string,
+    placeholder: string,
+    buttonText: string,
+    defaultValue: string,
+    onSubmit: (title: string) => void
+  ) {
+    super(app);
+    this.title = title;
+    this.placeholder = placeholder;
+    this.buttonText = buttonText;
+    this.defaultValue = defaultValue;
+    this.onSubmit = onSubmit;
+  }
+
+  onOpen(): void {
+    this.contentEl.empty();
+    this.contentEl.createEl("h2", { text: this.title });
+    const input = this.contentEl.createEl("input", {
+      cls: "onemind-tag-input",
+      attr: { type: "text", placeholder: this.placeholder, value: this.defaultValue }
+    });
+    const actions = this.contentEl.createDiv({ cls: "onemind-modal-actions" });
+    const createButton = actions.createEl("button", { cls: "mod-cta", text: this.buttonText });
+    const submit = (): void => {
+      this.onSubmit(input.value);
+      this.close();
+    };
+    createButton.addEventListener("click", submit);
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        submit();
+      } else if (event.key === "Escape") {
+        event.preventDefault();
+        this.close();
+      }
+    });
+    input.focus();
+    input.select();
+  }
+
+  onClose(): void {
+    this.contentEl.empty();
+  }
+}
+
 class TagSuggestModal extends SuggestModal<string> {
   private tags: string[];
   private onChoose: (tag: string) => void;
@@ -2188,6 +2299,13 @@ function serializeMarkdown(root: MindNode): string {
   };
   visit(root, 1, false);
   return `${lines.join("\n")}\n`;
+}
+
+function sanitizeFileName(value: string): string {
+  return value
+    .replace(/[\\/:*?"<>|#^[\]]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function renderSvgDocument(items: PositionedNode[], title: string, showAssociationLinks = true): string {
