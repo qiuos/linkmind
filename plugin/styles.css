@@ -1,7 +1,8 @@
 .onemind-view {
-  --onemind-node-bg: var(--background-primary);
+  --onemind-node-bg: color-mix(in srgb, var(--background-primary) 94%, var(--interactive-accent) 6%);
   --onemind-node-border: var(--background-modifier-border);
-  --onemind-node-shadow: rgba(15, 23, 42, 0.08);
+  --onemind-node-shadow: rgba(15, 23, 42, 0.06);
+  --onemind-root-bg: color-mix(in srgb, var(--interactive-accent) 16%, var(--background-primary));
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -118,12 +119,16 @@
   cursor: grab;
   touch-action: none;
   background:
-    radial-gradient(circle at 1px 1px, var(--background-modifier-border) 1px, transparent 0) 0 0 / 28px 28px,
+    radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--background-modifier-border) 60%, transparent) 1px, transparent 0) 0 0 / 32px 32px,
     var(--background-primary);
 }
 
 .onemind-canvas:active {
   cursor: grabbing;
+}
+
+.onemind-canvas:focus {
+  outline: none;
 }
 
 .onemind-status {
@@ -261,9 +266,9 @@
 }
 
 .onemind-links path {
-  stroke-width: 1.5px;
+  stroke-width: 2.6px;
   stroke-linecap: round;
-  opacity: 0.78;
+  opacity: 0.88;
 }
 
 .onemind-links path.onemind-association-link {
@@ -281,11 +286,11 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 8px;
-  padding: 8px 12px 8px 14px;
-  border: 1.5px solid var(--onemind-node-border);
-  border-radius: 8px;
+  padding: 7px 14px;
+  border: 2px solid var(--onemind-node-border);
+  border-radius: 999px;
   background: var(--onemind-node-bg);
-  box-shadow: 0 8px 24px var(--onemind-node-shadow);
+  box-shadow: 0 4px 14px var(--onemind-node-shadow);
   color: var(--text-normal);
   font-size: 14px;
   line-height: 1.35;
@@ -300,22 +305,25 @@
 }
 
 .onemind-node:hover {
-  transform: translateY(-1px);
+  transform: translateY(-1px) scale(1.01);
 }
 
 .onemind-node.is-root {
   width: 200px;
   min-height: 48px;
+  justify-content: center;
+  border-width: 2.5px;
+  background: var(--onemind-root-bg);
   font-size: 18px;
   font-weight: 700;
 }
 
 .onemind-node.is-selected {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--interactive-accent) 24%, transparent), 0 10px 26px var(--onemind-node-shadow);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--interactive-accent) 22%, transparent), 0 8px 22px var(--onemind-node-shadow);
 }
 
 .onemind-node.is-primary-selected {
-  border-width: 2px;
+  border-width: 2.5px;
 }
 
 .onemind-node.is-dragging {
@@ -328,7 +336,7 @@
 }
 
 .onemind-node.is-drop-child {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--interactive-accent) 32%, transparent), 0 10px 26px var(--onemind-node-shadow);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--interactive-accent) 32%, transparent), 0 8px 22px var(--onemind-node-shadow);
 }
 
 .onemind-node.is-search-match {
@@ -336,17 +344,17 @@
 }
 
 .onemind-node.is-active-search-match {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--text-accent) 34%, transparent), 0 10px 26px var(--onemind-node-shadow);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--text-accent) 34%, transparent), 0 8px 22px var(--onemind-node-shadow);
 }
 
 .onemind-node-emoji {
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
-  border-radius: 6px;
+  border-radius: 999px;
   background: var(--background-secondary);
   font-size: 17px;
   line-height: 1;
@@ -420,7 +428,7 @@
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
-  border-radius: 5px;
+  border-radius: 999px;
   color: var(--text-muted);
 }
 

@@ -335,7 +335,7 @@ export default class OneMindPlugin extends Plugin {
       (leaf) => new OneMindView(leaf, this)
     );
 
-    this.addRibbonIcon("git-fork", this.t("openRibbon"), () => {
+    this.addRibbonIcon("brain-circuit", this.t("openRibbon"), () => {
       const file = this.getActiveMarkdownFile();
       if (file) {
         void this.openMindMap(file, this.getActiveHeadingAnchor());
@@ -556,7 +556,7 @@ class OneMindView extends ItemView {
   }
 
   getIcon(): string {
-    return "git-fork";
+    return "brain-circuit";
   }
 
   async setState(state: OneMindViewState, result: ViewStateResult): Promise<void> {
@@ -573,6 +573,7 @@ class OneMindView extends ItemView {
   async onOpen(): Promise<void> {
     this.contentEl.empty();
     this.contentEl.addClass("onemind-view");
+    this.contentEl.setAttr("tabindex", "0");
     this.contentEl.toggleClass("is-animation-disabled", !this.plugin.settings.animations);
 
     const toolbar = this.contentEl.createDiv({ cls: "onemind-toolbar" });
@@ -603,6 +604,8 @@ class OneMindView extends ItemView {
     this.searchInputEl.addEventListener("keydown", (event) => this.onSearchKeyDown(event));
 
     this.canvasEl = this.contentEl.createDiv({ cls: "onemind-canvas" });
+    this.canvasEl.setAttr("tabindex", "0");
+    this.canvasEl.setAttr("aria-label", "OneMind canvas");
     this.sceneEl = this.canvasEl.createDiv({ cls: "onemind-scene" });
     this.svgEl = createSvg("svg");
     this.svgEl.addClass("onemind-links");
@@ -631,6 +634,7 @@ class OneMindView extends ItemView {
     }));
 
     await this.loadFile();
+    window.setTimeout(() => this.focusCanvas(), 0);
   }
 
   async openMarkdown(): Promise<void> {
@@ -718,6 +722,11 @@ class OneMindView extends ItemView {
     this.renderOutline();
     this.updateStatus();
     this.applyTransform();
+  }
+
+  private focusCanvas(): void {
+    if (!this.canvasEl || this.searchInputEl === document.activeElement) return;
+    this.canvasEl.focus({ preventScroll: true });
   }
 
   private renderOutline(): void {
@@ -899,6 +908,7 @@ class OneMindView extends ItemView {
     this.selectedId = id;
     this.selectedIds = new Set([id]);
     this.render();
+    this.focusCanvas();
   }
 
   private selectAndFocusNode(id: string): void {
@@ -907,6 +917,7 @@ class OneMindView extends ItemView {
     this.expandAncestors(id);
     this.render();
     this.focusSelected();
+    this.focusCanvas();
   }
 
   private applyPendingFocus(): void {
@@ -930,6 +941,7 @@ class OneMindView extends ItemView {
   }
 
   private handleNodeClick(event: MouseEvent, id: string): void {
+    this.focusCanvas();
     if (event.metaKey || event.ctrlKey) {
       this.toggleNodeSelection(id);
       return;
@@ -1617,6 +1629,7 @@ class OneMindView extends ItemView {
   private onPointerDown(event: PointerEvent): void {
     const target = event.target as HTMLElement;
     if (target.closest(".onemind-node") || target.closest(".onemind-toolbar")) return;
+    this.focusCanvas();
     this.panning = { x: event.clientX, y: event.clientY, panX: this.panX, panY: this.panY };
     this.canvasEl.setPointerCapture(event.pointerId);
   }
