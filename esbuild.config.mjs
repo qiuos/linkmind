@@ -8,7 +8,7 @@ const context = await esbuild.context({
   banner: {
     js: "/* OneMind - Obsidian mind map plugin */"
   },
-  entryPoints: ["main.ts"],
+  entryPoints: ["src/main.ts"],
   bundle: true,
   external: [
     "obsidian",
@@ -31,7 +31,7 @@ const context = await esbuild.context({
   logLevel: "info",
   sourcemap: prod ? false : "inline",
   treeShaking: true,
-  outfile: "main.js",
+  outfile: "plugin/main.js",
   minify: prod
 });
 

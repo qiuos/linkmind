@@ -59,4 +59,13 @@ For a production build:
 npm run build
 ```
 
-Copy or symlink this folder into an Obsidian vault under `.obsidian/plugins/onemind`, then enable the plugin from Obsidian settings.
+Copy or symlink the `plugin/` folder into an Obsidian vault as `.obsidian/plugins/onemind`, then enable the plugin from Obsidian settings.
+
+The installable Obsidian plugin files are kept together in `plugin/`:
+
+```text
+plugin/
+  main.js
+  manifest.json
+  styles.css
+```
