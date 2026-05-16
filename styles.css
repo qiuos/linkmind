@@ -1,0 +1,506 @@
+.onemind-view {
+  --onemind-node-bg: var(--background-primary);
+  --onemind-node-border: var(--background-modifier-border);
+  --onemind-node-shadow: rgba(15, 23, 42, 0.08);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background: var(--background-primary);
+}
+
+.theme-dark .onemind-view {
+  --onemind-node-shadow: rgba(0, 0, 0, 0.28);
+}
+
+.onemind-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-height: 40px;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--background-modifier-border);
+  background: var(--background-primary);
+  flex: 0 0 auto;
+}
+
+.onemind-search {
+  position: relative;
+  margin-left: 6px;
+  width: min(260px, 34vw);
+  min-width: 140px;
+}
+
+@media (max-width: 560px) {
+  .onemind-toolbar {
+    align-items: stretch;
+  }
+
+  .onemind-search {
+    order: 2;
+    width: 100%;
+    min-width: 100%;
+    margin-left: 0;
+  }
+
+  .onemind-node {
+    width: 168px;
+    padding-left: 12px;
+    padding-right: 10px;
+  }
+
+  .onemind-node.is-root {
+    width: 184px;
+  }
+
+  .onemind-outline {
+    left: 10px;
+    right: 10px;
+    top: 10px;
+    bottom: auto;
+    width: auto;
+    max-height: 42%;
+    min-width: 0;
+  }
+}
+
+.onemind-search-input {
+  width: 100%;
+  height: 28px;
+  padding: 4px 44px 4px 10px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 6px;
+  background: var(--background-secondary);
+  color: var(--text-normal);
+  font-size: 13px;
+}
+
+.onemind-search-input:focus {
+  border-color: var(--interactive-accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--interactive-accent) 18%, transparent);
+}
+
+.onemind-search-count {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  max-width: 36px;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 11px;
+  line-height: 1;
+  text-align: right;
+  pointer-events: none;
+}
+
+.onemind-tool-button {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: var(--text-muted);
+}
+
+.onemind-tool-button:hover {
+  border-color: var(--background-modifier-border);
+  color: var(--text-normal);
+  background: var(--background-modifier-hover);
+}
+
+.onemind-canvas {
+  position: relative;
+  flex: 1 1 auto;
+  overflow: hidden;
+  cursor: grab;
+  touch-action: none;
+  background:
+    radial-gradient(circle at 1px 1px, var(--background-modifier-border) 1px, transparent 0) 0 0 / 28px 28px,
+    var(--background-primary);
+}
+
+.onemind-canvas:active {
+  cursor: grabbing;
+}
+
+.onemind-status {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  max-width: min(520px, calc(100% - 24px));
+  padding: 5px 8px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--background-primary) 92%, transparent);
+  color: var(--text-muted);
+  box-shadow: 0 8px 20px var(--onemind-node-shadow);
+  font-size: 12px;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 25;
+}
+
+.onemind-outline {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  bottom: 12px;
+  width: min(280px, 32vw);
+  min-width: 210px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--background-primary) 94%, transparent);
+  box-shadow: 0 12px 28px var(--onemind-node-shadow);
+  z-index: 30;
+  overflow: hidden;
+}
+
+.onemind-outline.is-hidden {
+  display: none;
+}
+
+.onemind-outline-header {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 6px 4px 12px;
+  border-bottom: 1px solid var(--background-modifier-border);
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+.onemind-outline-list {
+  overflow: auto;
+  padding: 6px;
+}
+
+.onemind-outline-row {
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.25;
+  cursor: pointer;
+}
+
+.onemind-outline-row:hover {
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+}
+
+.onemind-outline-row.is-selected {
+  background: color-mix(in srgb, var(--interactive-accent) 14%, transparent);
+  color: var(--text-normal);
+}
+
+.onemind-outline-emoji {
+  flex: 0 0 auto;
+  font-size: 14px;
+}
+
+.onemind-outline-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.onemind-outline-count {
+  flex: 0 0 auto;
+  margin-left: auto;
+  padding: 1px 5px;
+  border-radius: 999px;
+  background: var(--background-secondary);
+  color: var(--text-faint);
+  font-size: 11px;
+}
+
+.onemind-outline-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 2px 2px 6px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--interactive-accent) 12%, transparent);
+  color: var(--text-normal);
+  font-size: 12px;
+}
+
+.onemind-outline-filter button {
+  margin-left: auto;
+}
+
+.onemind-scene {
+  position: absolute;
+  inset: 0;
+  transform-origin: 0 0;
+}
+
+.onemind-links,
+.onemind-nodes {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+}
+
+.onemind-links path {
+  stroke-width: 1.5px;
+  stroke-linecap: round;
+  opacity: 0.78;
+}
+
+.onemind-links path.onemind-association-link {
+  stroke: var(--text-faint);
+  stroke-width: 1.2px;
+  stroke-dasharray: 5 5;
+  opacity: 0.72;
+}
+
+.onemind-node {
+  position: absolute;
+  width: 180px;
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 12px 8px 14px;
+  border: 1.5px solid var(--onemind-node-border);
+  border-radius: 8px;
+  background: var(--onemind-node-bg);
+  box-shadow: 0 8px 24px var(--onemind-node-shadow);
+  color: var(--text-normal);
+  font-size: 14px;
+  line-height: 1.35;
+  cursor: default;
+  touch-action: none;
+  transition: left 160ms ease, top 160ms ease, box-shadow 160ms ease, border-color 160ms ease, transform 160ms ease;
+  user-select: none;
+}
+
+.onemind-view.is-animation-disabled .onemind-node {
+  transition: none;
+}
+
+.onemind-node:hover {
+  transform: translateY(-1px);
+}
+
+.onemind-node.is-root {
+  width: 200px;
+  min-height: 48px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.onemind-node.is-selected {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--interactive-accent) 24%, transparent), 0 10px 26px var(--onemind-node-shadow);
+}
+
+.onemind-node.is-primary-selected {
+  border-width: 2px;
+}
+
+.onemind-node.is-dragging {
+  z-index: 20;
+  opacity: 0.88;
+  cursor: grabbing;
+  pointer-events: none;
+  transition: none;
+  box-shadow: 0 14px 34px var(--onemind-node-shadow);
+}
+
+.onemind-node.is-drop-child {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--interactive-accent) 32%, transparent), 0 10px 26px var(--onemind-node-shadow);
+}
+
+.onemind-node.is-search-match {
+  background: color-mix(in srgb, var(--interactive-accent) 8%, var(--onemind-node-bg));
+}
+
+.onemind-node.is-active-search-match {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--text-accent) 34%, transparent), 0 10px 26px var(--onemind-node-shadow);
+}
+
+.onemind-node-emoji {
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  border-radius: 6px;
+  background: var(--background-secondary);
+  font-size: 17px;
+  line-height: 1;
+}
+
+.onemind-node.is-root .onemind-node-emoji {
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+}
+
+.onemind-node-content {
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow-wrap: anywhere;
+}
+
+.onemind-node-tags {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 2px;
+  padding-left: 34px;
+}
+
+.onemind-node:not(.has-emoji) .onemind-node-tags {
+  padding-left: 0;
+}
+
+.onemind-node-tag {
+  max-width: 100%;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--interactive-accent) 10%, var(--background-secondary));
+  color: var(--text-muted);
+  font-size: 11px;
+  line-height: 1.45;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.onemind-node-tag:hover,
+.onemind-node-tag.is-active {
+  background: color-mix(in srgb, var(--interactive-accent) 22%, var(--background-secondary));
+  color: var(--text-normal);
+}
+
+.onemind-node-content code {
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: var(--code-background);
+  color: var(--code-normal);
+  font-size: 0.92em;
+}
+
+.onemind-wikilink {
+  color: var(--link-color);
+  cursor: pointer;
+}
+
+.onemind-wikilink:hover {
+  text-decoration: underline;
+}
+
+.onemind-collapse {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  border-radius: 5px;
+  color: var(--text-muted);
+}
+
+.onemind-collapse:hover {
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+}
+
+.onemind-editor {
+  width: 100%;
+  min-height: 36px;
+  resize: none;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text-normal);
+  font: inherit;
+  line-height: 1.35;
+}
+
+.onemind-drop-marker {
+  position: absolute;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--interactive-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--interactive-accent) 22%, transparent);
+  pointer-events: none;
+  z-index: 15;
+}
+
+.onemind-drop-marker::before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--interactive-accent);
+}
+
+.onemind-empty {
+  margin: auto;
+  color: var(--text-muted);
+}
+
+.onemind-emoji-suggestion {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.onemind-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.onemind-tag-input {
+  width: 100%;
+  height: 36px;
+  padding: 6px 10px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 6px;
+  background: var(--background-secondary);
+  color: var(--text-normal);
+}
+
+.onemind-tag-suggestion {
+  font-size: 13px;
+  color: var(--text-normal);
+}
+
+.onemind-settings-palette {
+  margin: 4px 0 10px;
+  padding-left: 12px;
+  border-left: 2px solid var(--background-modifier-border);
+}

@@ -1,0 +1,10 @@
+{
+  "id": "onemind",
+  "name": "OneMind",
+  "version": "0.1.0",
+  "minAppVersion": "1.5.0",
+  "description": "Edit Markdown as a clean, keyboard-friendly mind map.",
+  "author": "",
+  "authorUrl": "",
+  "isDesktopOnly": false
+}
