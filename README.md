@@ -1,8 +1,8 @@
-# OneMind
+# MindPiece
 
 [中文文档](./README.zh.md)
 
-Edit Markdown notes as interactive mind maps in Obsidian. OneMind renders headings and lists as a clean SVG + DOM mind map, writes every edit back to plain Markdown, and stays out of your way.
+Edit Markdown notes as interactive mind maps in Obsidian. MindPiece renders headings and lists as a clean SVG + DOM mind map, writes every edit back to plain Markdown, and stays out of your way.
 
 ## Features
 
@@ -41,10 +41,10 @@ Edit Markdown notes as interactive mind maps in Obsidian. OneMind renders headin
 
 ## Installation
 
-1. Download `main.js`, `manifest.json`, and `styles.css` from the [latest release](https://github.com/qiuos/onemind/releases).
-2. Create a folder named `onemind` inside your vault's `.obsidian/plugins/` directory.
+1. Download `main.js`, `manifest.json`, and `styles.css` from the [latest release](https://github.com/qiuos/mindpiece/releases).
+2. Create a folder named `mindpiece` inside your vault's `.obsidian/plugins/` directory.
 3. Copy the three files into that folder.
-4. Open Obsidian Settings > Community plugins, refresh the list, and enable **OneMind**.
+4. Open Obsidian Settings > Community plugins, refresh the list, and enable **MindPiece**.
 
 `styles.css` is optional, but recommended.
 

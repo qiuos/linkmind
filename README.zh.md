@@ -1,8 +1,8 @@
-# OneMind
+# MindPiece
 
 [English](./README.md)
 
-在 Obsidian 中将 Markdown 笔记直接作为交互式思维导图编辑。OneMind 会把标题和无序列表渲染为清爽的 SVG + DOM 思维导图，并把所有编辑实时写回纯 Markdown。
+在 Obsidian 中将 Markdown 笔记直接作为交互式思维导图编辑。MindPiece 会把标题和无序列表渲染为清爽的 SVG + DOM 思维导图，并把所有编辑实时写回纯 Markdown。
 
 ## 功能特性
 
@@ -41,10 +41,10 @@
 
 ## 安装
 
-1. 从 [最新发布页](https://github.com/qiuos/onemind/releases) 下载 `main.js`、`manifest.json` 和 `styles.css`。
-2. 在你的仓库目录下创建 `.obsidian/plugins/onemind/` 文件夹。
+1. 从 [最新发布页](https://github.com/qiuos/mindpiece/releases) 下载 `main.js`、`manifest.json` 和 `styles.css`。
+2. 在你的仓库目录下创建 `.obsidian/plugins/mindpiece/` 文件夹。
 3. 将这三个文件放入该文件夹。
-4. 打开 Obsidian：设置 > 第三方插件，刷新并启用 **OneMind**。
+4. 打开 Obsidian：设置 > 第三方插件，刷新并启用 **MindPiece**。
 
 `styles.css` 为可选文件，但推荐安装。
 

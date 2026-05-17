@@ -1,6 +1,6 @@
 {
-  "id": "onemind",
-  "name": "OneMind",
+  "id": "MindPiece",
+  "name": "MindPiece",
   "version": "0.1.0",
   "minAppVersion": "1.5.0",
   "description": "Edit Markdown as a clean, keyboard-friendly mind map.",
