@@ -54,6 +54,10 @@ Edit Markdown notes as interactive mind maps in Obsidian. linkmind renders headi
 2. Click the brain icon in the left ribbon, or run **"Open current note as mind map"** from the command palette.
 3. Edit nodes, restructure the tree, and export -- all changes are saved back to Markdown automatically.
 
+## Screenshots
+
+![linkmind screenshot](./docs/5414.webp)
+
 ## Settings
 
 | Setting | Default | Description |

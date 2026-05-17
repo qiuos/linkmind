@@ -1,6 +1,6 @@
 {
   "name": "linkmind",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "An editor-first mind map plugin for Obsidian that syncs with plain Markdown.",
   "main": "plugin/main.js",
   "scripts": {

@@ -46,13 +46,13 @@
   }
 
   .linkmind-node {
-    width: 168px;
+    width: 200px;
     padding-left: 12px;
     padding-right: 10px;
   }
 
   .linkmind-node.is-root {
-    width: 184px;
+    width: 220px;
   }
 
   .linkmind-outline {
@@ -286,7 +286,7 @@
 
 .linkmind-node {
   position: absolute;
-  width: 180px;
+  width: 220px;
   min-height: 42px;
   display: flex;
   align-items: center;
@@ -314,7 +314,7 @@
 }
 
 .linkmind-node.is-root {
-  width: 200px;
+  width: 240px;
   min-height: 48px;
   justify-content: center;
   border-width: 2.5px;
