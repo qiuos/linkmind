@@ -1,6 +1,6 @@
 {
   "name": "mindpiece",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "An editor-first mind map plugin for Obsidian that syncs with plain Markdown.",
   "main": "plugin/main.js",
   "scripts": {
