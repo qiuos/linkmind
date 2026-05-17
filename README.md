@@ -1,8 +1,8 @@
-# MindPiece
+# linkmind
 
 [中文文档](./README.zh.md)
 
-Edit Markdown notes as interactive mind maps in Obsidian. MindPiece renders headings and lists as a clean SVG + DOM mind map, writes every edit back to plain Markdown, and stays out of your way.
+Edit Markdown notes as interactive mind maps in Obsidian. linkmind renders headings and lists as a clean SVG + DOM mind map, writes every edit back to plain Markdown, and stays out of your way.
 
 ## Features
 
@@ -41,10 +41,10 @@ Edit Markdown notes as interactive mind maps in Obsidian. MindPiece renders head
 
 ## Installation
 
-1. Download `main.js`, `manifest.json`, and `styles.css` from the [latest release](https://github.com/qiuos/mindpiece/releases).
-2. Create a folder named `mindpiece` inside your vault's `.obsidian/plugins/` directory.
+1. Download `main.js`, `manifest.json`, and `styles.css` from the [latest release](https://github.com/qiuos/linkmind/releases).
+2. Create a folder named `linkmind` inside your vault's `.obsidian/plugins/` directory.
 3. Copy the three files into that folder.
-4. Open Obsidian Settings > Community plugins, refresh the list, and enable **MindPiece**.
+4. Open Obsidian Settings > Community plugins, refresh the list, and enable **linkmind**.
 
 `styles.css` is optional, but recommended.
 

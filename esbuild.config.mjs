@@ -6,7 +6,7 @@ const prod = process.argv[2] === "production";
 
 const context = await esbuild.context({
   banner: {
-    js: "/* MindPiece - Obsidian mind map plugin */"
+    js: "/* linkmind - Obsidian mind map plugin */"
   },
   entryPoints: ["src/main.ts"],
   bundle: true,
