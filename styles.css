@@ -331,8 +331,8 @@
   border-width: 2.5px;
 }
 
-.linkmind-node.is-borderless {
-  border-color: transparent !important;
+.linkmind-node.is-borderless.is-borderless {
+  border-color: transparent;
 }
 
 .linkmind-node.is-dragging {
