@@ -56,7 +56,7 @@ Edit Markdown notes as interactive mind maps in Obsidian. linkmind renders headi
 
 ## Screenshots
 
-![linkmind screenshot](./docs/5414.webp)
+![linkmind screenshot](./screenshots/linkmind.png)
 
 ## Settings
 

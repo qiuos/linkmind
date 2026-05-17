@@ -56,7 +56,7 @@
 
 ## 截图
 
-![linkmind 截图](./docs/5414.webp)
+![linkmind 截图](./screenshots/linkmind.png)
 
 ## 设置项
 
