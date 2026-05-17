@@ -1,71 +1,73 @@
 # OneMind
 
-OneMind is an editor-first Obsidian mind map plugin. It opens the current Markdown note as a clean SVG + DOM mind map and writes edits back to plain Markdown.
+[中文文档](./README.zh.md)
 
-## MVP Features
+Edit Markdown notes as interactive mind maps in Obsidian. OneMind renders headings and lists as a clean SVG + DOM mind map, writes every edit back to plain Markdown, and stays out of your way.
 
-- Open the active Markdown note in a full-page OneMind view.
-- Switch from Markdown to OneMind and focus the node matching the current heading.
-- Copy a selected node as a standard `obsidian://open` URI with a heading anchor.
-- Parse headings and unordered lists into a tree.
-- Render a horizontal mind map with SVG Bezier links and DOM nodes.
-- Choose between right-facing and balanced two-sided layouts.
-- Add child nodes with `Tab`, add sibling nodes with `Enter`.
-- Duplicate nodes and restructure with `Alt/Option + Arrow keys`.
-- Use the node context menu for common edit, copy, tag, export, and delete actions.
-- Long-press nodes on touch devices to open the same context menu.
-- Edit nodes with `F2` or double click.
-- Add, replace, or clear node emoji icons; icons are stored as leading emoji in Markdown text.
-- Show Markdown tags such as `#todo` or `#idea` as node badges.
-- Add or clear Markdown tag badges from selected nodes, including multi-selections.
-- Filter the visible mind map by tag from tag badges or the command palette.
-- See visible/total node counts, selected count, zoom, filter, and save state in the canvas status bar.
-- Copy a selected branch as Markdown and paste Markdown from the clipboard as child or sibling nodes.
-- Delete nodes with `Delete` or `Backspace`.
-- Multi-select nodes with `Ctrl/Cmd + click`, range-select with `Shift + click`, and select all with `Ctrl/Cmd + A`.
-- Apply delete, collapse, and emoji actions to the current multi-selection.
-- Drag nodes onto another node to make them children, or between nearby nodes to reorder siblings.
-- Collapse or expand nodes with `Space`.
-- Expand or collapse the full map from toolbar actions or commands.
-- Search nodes with `/`, then use `Enter` and `Shift + Enter` to move through matches.
-- Navigate large maps with the collapsible outline panel.
-- Move selection with arrow keys.
-- Pan with blank-canvas drag.
-- Zoom with mouse wheel or `Ctrl/Cmd +` and `Ctrl/Cmd -`.
-- Fit to view with `Ctrl/Cmd + Shift + F`, focus selection with `Ctrl/Cmd + F`.
-- Basic local undo and redo with `Ctrl/Cmd + Z` and `Ctrl/Cmd + Shift + Z`.
-- Inline rendering for `**bold**`, `` `code` ``, and `[[wikilinks]]`.
-- Draw dashed cross-branch association links from local wikilinks like `[[#Target]]` or `[[Target]]`.
-- Export the current mind map as `.onemind.svg` or `.onemind.png` beside the source note.
-- Export only the selected branch as SVG or PNG from commands.
-- Configure PNG export scale and transparent background.
-- Preserve frontmatter and leading non-map Markdown when writing edits back.
-- Resolve external Markdown changes with a conflict prompt when local mind map edits are still unsaved.
-- Responsive toolbar treatment for narrow/mobile panes.
-- Chinese and English UI language setting.
-- Settings for layout direction, auto-save delay, default expand depth, animation, visual branch color pickers, and export behavior.
-- Obsidian commands for node editing actions, ready for custom hotkeys.
+## Features
 
-## Development
+- **Markdown-native** -- headings and bullet lists become the mind map tree; edits sync back as plain Markdown.
+- **Keyboard-driven editing** -- `Tab` to add a child, `Enter` to add a sibling, `F2` to edit, arrow keys to navigate, `Alt + Arrows` to restructure.
+- **Drag & drop** -- drag nodes to reorder or reparent, including long-press on touch devices.
+- **Right-facing or balanced layout** -- choose a classic tree or a two-sided map in settings.
+- **Emoji icons & tags** -- add emoji icons and `#tags` to nodes; filter the map by tag.
+- **Cross-branch links** -- dashed association lines drawn automatically for `[[#Heading]]` and `[[Heading]]` wikilinks.
+- **Collapsible outline** -- navigate large maps with a built-in outline panel.
+- **Undo & redo** -- local history stack with `Ctrl/Cmd + Z` and `Ctrl/Cmd + Shift + Z`.
+- **Export** -- export the full map or a selected branch as SVG or PNG.
+- **Multi-select** -- `Ctrl/Cmd + Click`, `Shift + Click`, or `Ctrl/Cmd + A`.
+- **Copy & paste** -- copy a branch as Markdown, paste Markdown as new nodes.
+- **Node links** -- copy an `obsidian://open` URI for any node.
+- **Bilingual UI** -- Chinese and English interface.
+- **Mobile-friendly** -- responsive toolbar and touch support.
 
-```bash
-npm install
-npm run dev
-```
+## Keyboard Shortcuts
 
-For a production build:
+| Shortcut | Action |
+|---|---|
+| `Tab` | Add child node |
+| `Enter` | Add sibling node |
+| `F2` | Edit selected node |
+| `Delete` / `Backspace` | Delete selected node |
+| `Space` | Toggle collapse |
+| `/` | Focus search |
+| `Alt/Option + Arrow` | Move / indent / outdent node |
+| `Ctrl/Cmd + Z` | Undo |
+| `Ctrl/Cmd + Shift + Z` | Redo |
+| `Ctrl/Cmd + A` | Select all nodes |
+| `Ctrl/Cmd + =` / `-` | Zoom in / out |
+| `Ctrl/Cmd + Shift + F` | Fit map to view |
+| `Ctrl/Cmd + F` | Focus selected node |
 
-```bash
-npm run build
-```
+## Installation
 
-Copy or symlink the `plugin/` folder into an Obsidian vault as `.obsidian/plugins/onemind`, then enable the plugin from Obsidian settings.
+1. Download `main.js`, `manifest.json`, and `styles.css` from the [latest release](https://github.com/qiuos/onemind/releases).
+2. Create a folder named `onemind` inside your vault's `.obsidian/plugins/` directory.
+3. Copy the three files into that folder.
+4. Open Obsidian Settings > Community plugins, refresh the list, and enable **OneMind**.
 
-The installable Obsidian plugin files are kept together in `plugin/`:
+`styles.css` is optional, but recommended.
 
-```text
-plugin/
-  main.js
-  manifest.json
-  styles.css
-```
+## Usage
+
+1. Open any Markdown note that contains headings or bullet lists.
+2. Click the brain icon in the left ribbon, or run **"Open current note as mind map"** from the command palette.
+3. Edit nodes, restructure the tree, and export -- all changes are saved back to Markdown automatically.
+
+## Settings
+
+| Setting | Default | Description |
+|---|---|---|
+| Language | Chinese | UI language (Chinese / English) |
+| Auto-save delay | 300 ms | Delay before writing edits back to Markdown |
+| Default expand depth | 99 | Levels expanded on open (99 = all) |
+| Layout direction | Right | Right-facing tree or balanced two-sided |
+| Layout animation | On | Animate node movement after edits |
+| Show association links | On | Dashed lines for local wikilinks |
+| Branch colors | 5 preset colors | CSS colors for first-level branches |
+| PNG export scale | 2x | Resolution multiplier for PNG export |
+| Transparent PNG | Off | Transparent background in PNG exports |
+
+## License
+
+[MIT](./LICENSE)

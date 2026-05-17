@@ -7,3 +7,6 @@ yarn-error.log*
 .npm/
 .cache/
 dist/
+docs/
+plugin/
+src/
